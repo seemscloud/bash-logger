@@ -16,7 +16,6 @@ function formatter {
   fi
 }
 
-# for i in `seq 120` ; do echo -e "\e[${i}mMESSAGE\e[m $i" ; done
 function messager {
   if [ "${#}" -eq "2" ] ; then
     if [ "${2}" == "error" ] ; then
@@ -55,6 +54,11 @@ logger "error" "Example message"
 logger "warning" "Example message"
 logger "info" "Example message"
 logger "success" "Example message"
+```
+
+## Print all possible colors
+```bash
+for i in `seq 120` ; do echo -e "\e[${i}mMESSAGE\e[m $i" ; done
 ```
 
 ## Screenshot
