@@ -1,5 +1,6 @@
 # BASH Logger
 
+## Script
 ```bash
 #!/bin/bash
 
