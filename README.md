@@ -46,11 +46,14 @@ function logger {
   fi
 }
 
-#logger "Example message"
-#logger "error" "Example message"
-#logger "warning" "Example message"
-#logger "info" "Example message"
-#logger "success" "Example message"
+# simple message
+logger "Example message"              
+
+# message with log type
+logger "error" "Example message"
+logger "warning" "Example message"
+logger "info" "Example message"
+logger "success" "Example message"
 ```
 
 ## Screenshot
