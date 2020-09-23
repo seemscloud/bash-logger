@@ -58,7 +58,7 @@ logger "success" "Example message"
 
 ## Print all possible colors
 ```bash
-for i in `seq 120` ; do echo -e "\e[${i}mMESSAGE\e[m $i" ; done
+for ID in `seq 120` ; do echo -e "\e[${i}mMESSAGE\e[m ${ID}" ; done
 ```
 
 ## Screenshot
