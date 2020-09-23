@@ -55,4 +55,4 @@ function logger {
 
 ## Screenshot
 
-!(Screenshot)[screenshot.png]
+![Screenshot](screenshot.png)
