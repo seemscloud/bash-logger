@@ -1,3 +1,6 @@
+# BASH Logger
+
+```bash
 #!/bin/bash
 
 CONF_COLORS="$CONF_COLORS"
@@ -48,3 +51,4 @@ function logger {
 #logger "warning" "Example message"
 #logger "info" "Example message"
 #logger "success" "Example message"
+```
