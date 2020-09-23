@@ -52,3 +52,7 @@ function logger {
 #logger "info" "Example message"
 #logger "success" "Example message"
 ```
+
+## Screenshot
+
+!(Screenshot)[screenshot.png]
