@@ -6,10 +6,12 @@ declare -A LOG_COLORS=(
 )
 
 CONF_COLORS="true"
-
-function logger_format() {
-  local DATE=$(date +"%Y-%m-%d %H:%M:%S,%3N")
-  [[ "${CONF_COLORS}" == "true" ]] && echo -e "${DATE} \e[${3}m${1}\e[0m\t${2}" || echo -e "${DATE} ${1}\t${2}"
+{
+  function logger_format() {
+    local DATE
+    DATE=$(date +"%Y-%m-%d %H:%M:%S,%3N")
+    [[ "${CONF_COLORS}" == "true" ]] && echo -e "${DATE} \e[${3}m${1}\e[0m\t${2}" || echo -e "${DATE} ${1}\t${2}"
+  }
 }
 
 function logger() {
@@ -30,5 +32,4 @@ logger error lorem ipsum
 
 logger info "Example info message"
 logger success "Example success message"
-
 ```
