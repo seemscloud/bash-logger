@@ -1,52 +1,34 @@
-# BASH Logger
-
-## Script
 ```bash
 #!/bin/bash
 
-CONF_COLORS="$CONF_COLORS"
+declare -A LOG_COLORS=(
+  [error]=91 [success]=92 [warning]=93 [info]=96 [fatal]=31
+)
+
+CONF_COLORS="true"
 
 function logger_format() {
-  DATE=$(date +"%Y-%m-%d %H:%M:%S,%3N")
-
-  if [[ "${CONF_COLORS}" == "true" ]]; then
-    echo -e "${DATE} \e[${3}m${1}\e[m\t ${2}"
-  else
-    echo -e "${DATE} ${1}\t ${2}"
-  fi
-}
-
-function logger_msg() {
-  if [ "${2}" == "error" ]; then
-    logger_format "ERROR" "${1}" "91"
-  elif [ "${2}" == "success" ]; then
-    logger_format "SUCCESS" "${1}" "92"
-  elif [ "${2}" == "warning" ]; then
-    logger_format "WARNING" "${1}" "93"
-  elif [ "${2}" == "info" ]; then
-    logger_format "INFO" "${1}" "96"
-  else
-    logger_format "LOGGER" "Incorrect logger type: '${2}'.." "31" && exit 4
-  fi
+  local DATE=$(date +"%Y-%m-%d %H:%M:%S,%3N")
+  [[ "${CONF_COLORS}" == "true" ]] && echo -e "${DATE} \e[${3}m${1}\e[0m\t${2}" || echo -e "${DATE} ${1}\t${2}"
 }
 
 function logger() {
-  [ "${#}" -lt 2 ] || [ "${#}" -gt 2 ] && exit 1
-
-  logger_msg "${2}" "${1}"
+  local type="${1}" message="${2}"
+  [[ -z "${message}" || -z "${LOG_COLORS[${type}]}" ]] && {
+    logger_format "FATAL" "Usage: logger {error|success|warning|info|fatal} 'Message'" 31
+    return 1
+  }
+  logger_format "${type^^}" "${message}" "${LOG_COLORS[${type}]}"
 }
 
-logger "error" "Example message"
-logger "warning" "Example message"
-logger "info" "Example message"
-logger "success" "Example message"
+logger error "Example error message"
+logger warning "Example warning message"
+
+logger lorem "Incorrect logger"
+logger error
+logger error lorem ipsum
+
+logger info "Example info message"
+logger success "Example success message"
+
 ```
-
-## Print all possible colors
-```bash
-for ID in `seq 120` ; do echo -e "\e[${i}mMESSAGE\e[m ${ID}" ; done
-```
-
-## Screenshot
-
-![Screenshot](screenshot.png)
