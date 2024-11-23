@@ -19,7 +19,9 @@ logger() {
     echo -e "$(date +"%Y-%m-%d %H:%M:%S,%3N") $(echo "${type}" | tr '[:lower:]' '[:upper:]')\t${message}"
   fi
 }
+```
 
+```bash
 # Tests
 logger error "Example error message"     # OK
 logger warning "Example warning message" # OK
