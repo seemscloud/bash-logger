@@ -7,7 +7,7 @@ CONF_COLORS="true"
 logger() {
   local type="${1}" message="${2}"
   local color_var="LOG_COLORS_${type}"
-  color=${!color_var:-${LOG_COLORS_info}}
+  local color=${!color_var:-${LOG_COLORS_info}}
 
   [[ -z "${message}" ]] && {
     echo -e "$(date +"%Y-%m-%d %H:%M:%S,%3N") FATAL\tUsage: logger {error|success|warning|info|fatal} \"Message\""
@@ -28,4 +28,5 @@ logger error
 logger error lorem ipsum
 logger info "Example info message"
 logger success "Example success message"
+
 ```
