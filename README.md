@@ -20,6 +20,7 @@ logger() {
   fi
 }
 
+# Tests
 logger error "Example error message"     # OK
 logger warning "Example warning message" # OK
 logger lorem "Incorrect logger"          # FATAL
