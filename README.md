@@ -1,35 +1,31 @@
 ```bash
 #!/bin/bash
 
-declare -A LOG_COLORS=(
-  [error]=91 [success]=92 [warning]=93 [info]=96 [fatal]=31
-)
-
+LOG_COLORS_error=91 LOG_COLORS_success=92 LOG_COLORS_warning=93 LOG_COLORS_info=96 LOG_COLORS_fatal=31
 CONF_COLORS="true"
-{
-  function logger_format() {
-    local DATE
-    DATE=$(date +"%Y-%m-%d %H:%M:%S,%3N")
-    [[ "${CONF_COLORS}" == "true" ]] && echo -e "${DATE} \e[${3}m${1}\e[0m\t${2}" || echo -e "${DATE} ${1}\t${2}"
-  }
-}
 
-function logger() {
+logger() {
   local type="${1}" message="${2}"
-  [[ -z "${message}" || -z "${LOG_COLORS[${type}]}" ]] && {
-    logger_format "FATAL" "Usage: logger {error|success|warning|info|fatal} 'Message'" 31
+  local color_var="LOG_COLORS_${type}"
+  color=${!color_var:-${LOG_COLORS_info}}
+
+  [[ -z "${message}" ]] && {
+    echo -e "$(date +"%Y-%m-%d %H:%M:%S,%3N") FATAL\tUsage: logger {error|success|warning|info|fatal} \"Message\""
     return 1
   }
-  logger_format "${type^^}" "${message}" "${LOG_COLORS[${type}]}"
+
+  if [[ "${CONF_COLORS}" == "true" ]]; then
+    echo -e "$(date +"%Y-%m-%d %H:%M:%S,%3N") \e[${color}m${type^^}\e[0m\t${message}"
+  else
+    echo -e "$(date +"%Y-%m-%d %H:%M:%S,%3N") ${type^^}\t${message}"
+  fi
 }
 
 logger error "Example error message"
 logger warning "Example warning message"
-
 logger lorem "Incorrect logger"
 logger error
 logger error lorem ipsum
-
 logger info "Example info message"
 logger success "Example success message"
 ```
